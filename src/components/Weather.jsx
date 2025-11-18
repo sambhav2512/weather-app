@@ -16,6 +16,7 @@ const Weather = () => {
     const search = async (city)=>{
         if(city===""){
             alert("Enter City Name");
+            document.getElementById("input").value="";
             return;
         }
         try {
@@ -25,9 +26,10 @@ const Weather = () => {
             const data = await response.json();
             if(!response.ok){
               alert(data.message);
+              document.getElementById("input").value="";
               return;
             }
-            
+
             setWeatherData({
                 humidity : data.main.humidity,
                 windSpeed : data.wind.speed,
@@ -46,7 +48,7 @@ const Weather = () => {
   return (
     <div className='weather'>
       <div className="search-bar">
-        <input ref={inputref} type="text" placeholder='Search' />
+        <input ref={inputref} type="text" placeholder='Search' id='input'/>
         <img src={search_icon } alt="" onClick={()=>search(inputref.current.value)}/>
       </div>
       <img src={clear_icon} alt="" className='weather-icon' />
